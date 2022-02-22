@@ -1,0 +1,13 @@
+1 - instalar npx create-react-app NOMBRE DEL ARCHIVO 
+
+2 - instalar npm install framer-motion (esto es para las animaciones)
+
+3- borrar lo que necesito en app.js
+
+4- API : usa tbm movie API. 
+Pero solicita direccion y datos extras para pedir key.
+
+Uso una appi cualquiera como prueba, esta vez la de RICK & MORTY API. 
+
+
+
