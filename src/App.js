@@ -5,22 +5,34 @@ import Movie from './Movie';
 import Filter from './Filter';
 import { motion, AnimatePresence } from 'framer-motion';
 
-
-
 function App() {
 
-  //traigo todos mis objetos 
+  //variable "popular" donde voy a ingresar todos los objetos. 
+  //inicializa en un array vacio
+  //la cual llenare con mi API.
   const [popular, setPopular] = useState ([])
 
-  //filtro por categoria 
+  //estado para filtrar
+  //la inicializo en array vacio 
+  //ingreso todos mis objetos de la API
+  //a futuro filtro esta variable con la categoria indicada 
   const [filtered, setFiltered] = useState ([])
 
-  //filtrar por especie
+  //estado para activar cual de los botones esta activado 
+  // ejemplo: all, humanos, aliens 
   const [activeGenre, setActiveGenre] = useState ("")
 
   useEffect ( () => {
+
+    //le estamos indicando a React que el componente tiene que hacer algo después de renderizarse. 
+    //React recordará la función que le hemos pasado (nos referiremos a ella como nuestro “efecto”), 
+    //y la llamará más tarde después de actualizar el DOM. 
     fetchPopular ()
-  }, [])
+
+  }, 
+  //se vuelve a ejecutar si adentro del [] le pongo un argumento. 
+  //array de dependencia  
+  [])
 
   
   //////////////////////
@@ -35,36 +47,33 @@ function App() {
     //convertirlo a json
     const character = await data.json ()
 
-    //seteamos la variable popular.
-    setPopular (character.results)
-
-    setFiltered (character.results)
+    setPopular (character.results) //popular = [{todos los objetos}]
+    setFiltered (character.results) // filtered = [{todos los objetos}]
   }
-
-
 
   return (
     <div className="App">
 
       <h1>RICK & MORTY (React App) </h1>
 
-        <Filter 
-        popular={popular} 
-        setFiltered={setFiltered} 
-        setActiveGenre= {setActiveGenre}
-        activeGenre={activeGenre} 
-        />
+      {/*FILTER = RETURN BOTONES */}
+      <Filter 
+      popular={popular} 
+      setFiltered={setFiltered} 
+      setActiveGenre= {setActiveGenre}
+      activeGenre={activeGenre} 
+      />
 
-      {/*uso de framer-motion */}
+      {/*//// FRAMER-MOTION////*/}
       <motion.div 
-      layout 
-      className='popular-movies'>
+        layout 
+        className='popular-movies'>
 
         <AnimatePresence>
-          {/*mapeo mi variable = popular para mostrar contenido de mi array e imprimirlo */}
+          {/*mapeo mi variable "filtered" = popular para mostrar contenido de mi array e imprimirlo */}
           {filtered.map (movie => {
 
-            //AGREGO MI COMPONENTE 
+            //AGREGO MI COMPONENTE <MOVIE/>
             //KEY = mapeo y traigo todos los ID
             //MOVIE  = mapeo y traigo todos los objetos
               return <Movie key={movie.id} movie={movie}/>
